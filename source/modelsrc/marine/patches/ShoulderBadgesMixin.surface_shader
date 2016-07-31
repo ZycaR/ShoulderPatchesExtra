@@ -1,0 +1,69 @@
+﻿<shader>
+	
+	<inputs>
+        <!-- should be specified via material file -->
+        <input name="numRows" type="float">4</input>			
+        <input name="numColumns" type="float">4</input>			
+		<input name="atlas" type="texture" address="wrap"/>
+		<input name="opacityMap" type="texture" address="wrap"/>
+		<input name="emissiveMap" type="texture" address="wrap"/>
+		<input name="hiddenAmount" type="float">0.0</input>
+		<input name="highlight" type="float">0.0</input>
+		
+        <!-- should be specified via game -->
+        <!-- Row major index. 0 is the top-left rect -->
+        <!-- pass in -1 for no patch -->
+        <input name="patchIndex" type="float">1</input>
+
+		<input name="sbeOpacityMap" type="texture" address="wrap"/>
+		<input name="sbeEmissiveMap" type="texture" address="wrap"/>
+        <input name="sbeBadgeIndex" type="float">0</input>
+        <input name="sbeRows" type="float">1</input>
+        <input name="sbeCols" type="float">1</input>
+		
+	</inputs>
+
+	<params>
+		<param name="alphaTest">true</param>
+	</params>
+	
+	<code>
+	<![CDATA[
+		float2 DecodeUV(float2 uv, float index, float rows, float cols)
+		{
+            float row = floor(index / cols);
+            float col = index - row * cols;
+			uv.x = (col + uv.x) / cols;
+            uv.y = (row + uv.y) / rows;
+			return uv;
+		}
+	
+		void MaterialShader( in Material_Input input, inout Material material )
+		{
+			float highlightId   = highlight;
+
+            if( patchIndex >= 0 )
+            {
+                float2 uv = DecodeUV(input.texCoord, patchIndex, numRows, numColumns);
+                material.albedo	= tex2D(atlas, uv).rgb;
+                material.opacity = tex2D(opacityMap, uv).r ;
+                material.emissive = tex2D(emissiveMap, uv).rgb;
+            }
+            else if(sbeBadgeIndex > 0){
+                float2 uv = DecodeUV(input.texCoord, sbeBadgeIndex, sbeRows, sbeCols);
+				material.albedo	= tex2D(atlas, uv).rgb;
+                material.opacity = tex2D(sbeOpacityMap, uv).r * (1 - hiddenAmount);
+                material.emissive = tex2D(sbeEmissiveMap, uv).rgb;
+			}
+			else
+            {
+                material.albedo = float3(1,0,0);
+				material.opacity = 0;
+            }
+			
+            material.id = 1*highlightId;    // for alien vision
+		}
+	]]>
+	</code>
+
+</shader>

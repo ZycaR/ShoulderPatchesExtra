@@ -1,3 +1,7 @@
+#output folder
+output/**
+mod.settings
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
