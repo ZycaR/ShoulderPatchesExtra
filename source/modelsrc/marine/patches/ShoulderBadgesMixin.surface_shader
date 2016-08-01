@@ -41,18 +41,18 @@
 		void MaterialShader( in Material_Input input, inout Material material )
 		{
 			float highlightId   = highlight;
-
+			float f = 1 - hiddenAmount;
             if( patchIndex >= 0 )
             {
                 float2 uv = DecodeUV(input.texCoord, patchIndex, numRows, numColumns);
                 material.albedo	= tex2D(atlas, uv).rgb;
-                material.opacity = tex2D(opacityMap, uv).r ;
+                material.opacity = tex2D(opacityMap, uv).r * f;
                 material.emissive = tex2D(emissiveMap, uv).rgb;
             }
             else if(sbeBadgeIndex > 0){
                 float2 uv = DecodeUV(input.texCoord, sbeBadgeIndex, sbeRows, sbeCols);
 				material.albedo	= tex2D(atlas, uv).rgb;
-                material.opacity = tex2D(sbeOpacityMap, uv).r * (1 - hiddenAmount);
+                material.opacity = tex2D(sbeOpacityMap, uv).r * f;
                 material.emissive = tex2D(sbeEmissiveMap, uv).rgb;
 			}
 			else
