@@ -1,4 +1,4 @@
-shader = "models/marine/patches/ShoulderBadgesMixin.surface_shader"
+shader = "models/marine/patches/ShoulderPatchesExtra.surface_shader"
 
 atlas = "materials/dev/black.dds"
 opacityMap = "models/marine/patches/shoulder_patch_opac.dds"
@@ -7,7 +7,6 @@ numRows = 11
 numColumns = 1
 surface = "metal"
 
-sbeOpacityMap = "models/marine/patches/sbe_opac.dds"
-sbeEmissiveMap = "models/marine/patches/sbe_emissive.dds"
-sbeRows = 2
-sbeCols = 2
+spePatchesMap = "models/marine/patches/ShoulderPatchesExtra.dds"
+speRows = 2
+speCols = 2

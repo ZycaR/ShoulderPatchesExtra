@@ -1,5 +1,0 @@
-modEntry = {
-	Shared = "lua/sbe_Shared.lua",
-	FileHooks = "lua/sbe_Filehook.lua",
-	Priority = 4
-}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <file>
+    <filename>spe_CustomizePatches.lua</filename>
+  </file>
+  <file>
+    <filename>spe_FileHook.lua</filename>
+  </file>
+  <file>
+    <filename>spe_MenuPoses.lua</filename>
+  </file>
+  <file>
+    <filename>spe_Player.lua</filename>
+  </file>
+  <file>
+    <filename>spe_Shared.lua</filename>
+  </file>
+  <file>
+    <filename>spe_ShoulderPatchesConfig.lua</filename>
+  </file>
+  <file>
+    <filename>spe_ShoulderPatchesMixin.lua</filename>
+  </file>
+</project>
