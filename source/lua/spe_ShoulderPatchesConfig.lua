@@ -21,7 +21,7 @@ if Server then
     local kDefaultConfig = {
         PatchGroups = {
             [kDefaultGroup] = { },
-            SuperAdmin      = { "1" },
+            SuperAdmin      = { "1", "2", "3" },
             zycar           = { "2", "3" },
             nalice          = { "3" }
         },
