@@ -13,10 +13,10 @@
     <filename>spe_Player.lua</filename>
   </file>
   <file>
-    <filename>spe_Shared.lua</filename>
+    <filename>spe_ShoulderPatchesConfig.lua</filename>
   </file>
   <file>
-    <filename>spe_ShoulderPatchesConfig.lua</filename>
+    <filename>spe_ShoulderPatchesMessage.lua</filename>
   </file>
   <file>
     <filename>spe_ShoulderPatchesMixin.lua</filename>
