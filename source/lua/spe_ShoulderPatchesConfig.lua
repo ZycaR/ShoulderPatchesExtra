@@ -11,9 +11,10 @@ kDefaultGroup = "None"
 ShoulderPatchesConfig = {}
 ShoulderPatchesConfig.ConfigFileName = "ShoulderPatchesConfig.json"
 ShoulderPatchesConfig.PatchNames = {
-    "SuperAdmin",
+    "Wooza",
     "ZycaR",
-    "Nalice"
+    "Nalice",
+	"Lerk"
 }
 
 if Server then
@@ -21,9 +22,9 @@ if Server then
     local kDefaultConfig = {
         PatchGroups = {
             [kDefaultGroup] = { },
-            SuperAdmin      = { "1", "2", "3" },
-            zycar           = { "2", "3" },
-            nalice          = { "3" }
+            SuperAdmin      = { "1", "2", "3", "4" },
+            zycar           = { "2", "3", "4" },
+            nalice          = { "3", "4" }
         },
         Users = {
             ["90000000000001"] = kDefaultGroup,

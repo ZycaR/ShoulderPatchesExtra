@@ -8,5 +8,5 @@ numColumns = 1
 surface = "metal"
 
 spePatchesMap = "models/marine/patches/ShoulderPatchesExtra.dds"
-speRows = 2
-speCols = 2
+speRows = 4
+speCols = 4
