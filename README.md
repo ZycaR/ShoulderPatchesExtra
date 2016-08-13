@@ -71,7 +71,7 @@ Example of config file:
 		"Patch": "Admin"
 	},
     "moderators": {
-		"Patches": ["Moderator_1, "Moderator_2"]
+		"Patches": ["Moderator_1", "Moderator_2"]
 	}
   },
   "PatchUsers":{
