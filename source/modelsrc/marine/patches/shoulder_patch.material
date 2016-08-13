@@ -9,4 +9,4 @@ surface = "metal"
 
 spePatchesMap = "models/marine/patches/ShoulderPatchesExtra.dds"
 speRows = 4
-speCols = 4
+speCols = 16

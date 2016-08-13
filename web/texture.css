@@ -1,0 +1,42 @@
+#tiles {	
+	display: table;
+	border-style: solid;
+	border-color: gray; 
+	border-width: 1 0 0 1;
+}
+#tiles .row{
+	display: table-row;
+}
+#tiles .cell{
+	display: table-cell;
+	border-style: solid;
+	border-color: gray; 
+	border-width: 0 1 1 0;
+}
+#tiles .cell:hover {
+	background-color: rgb(255,127,196);
+}
+
+#tiles img {
+	width: 128px;
+	height: 128px;
+}
+
+label { font-weight: 600; }
+
+.ui-dialog {
+	background-color: white;
+	border: 1px solid gray;
+}
+.ui-dialog-titlebar {
+	background-color: silver;
+	border: 1px solid gray;
+}
+.ui-tooltip {
+	pointer-events: none;
+	padding: 0;
+	color: white;
+	background-color: rgba(0,0,0,.5);
+	width: 128px;
+	text-align: center;
+}

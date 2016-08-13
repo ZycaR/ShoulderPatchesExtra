@@ -41,19 +41,20 @@
 		{
 			float highlightId = highlight;
 			float f = 1 - hiddenAmount;
-            if( patchIndex >= 0 )
+            
+            if(spePatchIndex > 0){
+                float2 uv = DecodeUV(input.texCoord, spePatchIndex, speRows, speCols);
+				material.albedo	= tex2D(atlas, uv).rgb;
+                material.opacity = tex2D(spePatchesMap, uv).a * f;
+                material.emissive = tex2D(spePatchesMap, uv).rgb;
+			}
+			else if( patchIndex >= 0 )
             {
                 float2 uv = DecodeUV(input.texCoord, patchIndex, numRows, numColumns);
                 material.albedo	= tex2D(atlas, uv).rgb;
                 material.opacity = tex2D(opacityMap, uv).r * f;
                 material.emissive = tex2D(emissiveMap, uv).rgb;
             }
-            else if(spePatchIndex > 0){
-                float2 uv = DecodeUV(input.texCoord, spePatchIndex, speRows, speCols);
-				material.albedo	= tex2D(atlas, uv).rgb;
-                material.opacity = tex2D(spePatchesMap, uv).a * f;
-                material.emissive = tex2D(spePatchesMap, uv).rgb;
-			}
 			else
             {
                 material.albedo = float3(1,0,0);
