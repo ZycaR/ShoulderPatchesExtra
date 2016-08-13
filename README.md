@@ -3,7 +3,6 @@
 
 When the official shoulder patches are not enough and server administrators want to reward some players according how they behave on server the shoulder patches extra is the solution. To enable ShoulderPatchesExtra add ``"2bc45759"`` to the list of mods running on server and configure.
 
-Beautiful part is, that it will not override official patch player choose to wear on his shoulder.
 ## Configuration guide
 #### Basics
 
