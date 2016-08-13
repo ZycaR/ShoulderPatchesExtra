@@ -15,13 +15,15 @@ The configuration of ShoulderPatchesExtra consist of three main parts:
 #### Shoulder Patches Texture
 *This part cannot be modified with original workshop mod, any modification will be classified as violation of consistency check. To modify this part please contact the author.*
 
-
 To minimise complexity, disk space and something called *"draw calls"* (internal engine's magic) the patches are tiled in one image. It's preferred to arrange patches into square (i.e. 2x2, 4x4, ...)
 
 > It's not restricted to arrange all patches in one big line, but you will probably suffer with poor performance ...
 
 Patches image file: ``..\models\marine\patches\ShoulderPatchesExtra.dds``
 
+##### Patch position and index
+Patch index is position of patch on texture. Index with 0 occupied left-top corner, Index 1 is second column to right on same top-most row. This continues to bottom-right corner.
+> Please always consider index 0 as no-patch position. This index is used by mode to show no patch for not configured players (without group assigned).
 
 #### Material File
 *This part cannot be modified with original workshop mod, any modification will be classified as violation of consistency check. To modify this part please contact the author.*
@@ -32,43 +34,57 @@ Material file: ``..\models\marine\patches\shoulder_patch.material``
 ```
 ...
 spePatchesMap = "models/marine/patches/ShoulderPatchesExtra.dds"
-speRows = 2
-speCols = 2
+speRows = 4
+speCols = 16
 ```
 
 #### Patches Config File
-Last but not least we have config file description. After reading all those not so enjoyable previous parts (did you actually read them?). If you didn't read them properly then please do. It's highly recommended and will help to understand *patch index section* of config file.
+Last but not least we have config file description. After reading all those not so enjoyable previous parts (did you actually read them?). If you didn't read them properly then please do. It's highly recommended and will help to understand some sections of config file.
 
 After first run of game with mounted mod, the default config is created:\
 Config file: ``%appdata%\Natural Selection 2\ShoulderPatchesConfig.json``
 
-The config part named **PatchGroups** is dictionary to map "group_name" to list of "patch indexes" (will explain later).
-To get proper group for player the Shine mod configuration is used. Please note, that shine mod must be properly configured and running on the server. Fortunately when you don't have Shine, or you want to override some crazy patch for specific player you can use Users part of config.
+The config part named **PatchGroups** contains list of "group_name" with assigned patches. You can use either "Patch" for single patch assignment or plural "Patches" to assign collection of patches to group.
 
-Player assigned to group with more than one patch, can customize look in standard "Customize Player" menu.
+PatchGroups section contains specific group **DefaultGroup** where you can specify globally available patches for everyone.
 
-Config part **Users** is another dictionary to assign "group_name" to player by it's "steamid" (overrides Shine config).
+Config part **PatchUsers** is collection of user configurations. User configuration section uses SteamId as a key. User configuration can contain one "group_name" and one or more it's own patches.
+
+The result set of patches available for specific player is aggregation of:
+ - patches specified in user's configuration
+ - patches from group where player is assigned assigned
+ - and patches from special group "DefaultGroup".
+
+*Example below: Player with SteamID "438225" have available these patches: "Awesome", "Moderator_1", "Moderator_2" and "Generic".*
+
+Player with more than one patch available, can customize look in standard "Customize Player" menu.
+
+The similar principle is applied if Server have enabled **Shine** mod. Configuration is then moved to UserConfig.json file instead of build in config file. Please note, that once a shine mod is properly configured and running on the server ShoulderPatch mod will ignore ShoulderPatchesConfig.json file.
 
 Example of config file:
 ```json
 {
   "PatchGroups":{
-    "none": [],
-    "admin_group": ["1"],
-    "moderators": ["2", "3"],
-    "idiots": ["4"]
+    "DefaultGroup": {
+		"Patch": "Generic"
+	},
+    "admin_group": {
+		"Patch": "Admin"
+	},
+    "moderators": {
+		"Patches": ["Moderator_1, "Moderator_2"]
+	}
   },
-  "Users":{
-    "90000000000001":"none",
-    "438225": "moderator"
+  "PatchUsers":{
+    "90000000000001":{
+		"Patches": ["noname"]
+    },
+    "438225": {
+		"Group": "moderators",
+		"Patch": "Awesome"
   }
 }
 ```
-
-##### Patch Index
-Patch index is position of patch on texture. Index with 0 occupied left-top corner, Index 1 is second column to right on same top-most row. This continues to bottom-right corner.
-
-> Please always consider index 0 as no-patch position. This index is used by mode to show no patch for not configured players (without group assigned).
 
 ### ShoulderPatchesExtra Mod ID - 2573eb73
 ```sh
