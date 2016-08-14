@@ -21,4 +21,7 @@
   <file>
     <filename>spe_ShoulderPatchesMixin.lua</filename>
   </file>
+  <file>
+    <filename>spe_shoulderPatchesEnum.lua</filename>
+  </file>
 </project>

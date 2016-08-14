@@ -4,29 +4,22 @@
 ]]
 
 Script.Load("lua/ConfigFileUtility.lua")
+Script.Load("lua/spe_shoulderPatchesEnum.lua")
 
-kDefaultPatchIndex = 0
 kDefaultGroupName = "DefaultGroup"
 
 ShoulderPatchesConfig = {}
 ShoulderPatchesConfig.ConfigFileName = "ShoulderPatchesConfig.json"
-ShoulderPatchesConfig.DefaultPatchName = "None"
-ShoulderPatchesConfig.PatchNames = {
-    // "None" (reserved)
-    "Approved",
-    "ZycaR",
-    "Nalice",
-	"Lerk",
-	"Dilligaf"
-}
+ShoulderPatchesConfig.EmptyPatchName = kEmptyPatchName
+ShoulderPatchesConfig.PatchNames = kShoulderPatchNames
 
 function ShoulderPatchesConfig:GetPatchIndexByName(value)
-    if value ~= self.DefaultPatchName then
+    if value ~= self.EmptyPatchName then
         for index, name in pairs(self.PatchNames) do
             if name == value then return index end
         end
     end
-    return kDefaultPatchIndex
+    return kEmptyPatchIndex
 end
 
 if Server then
@@ -118,7 +111,7 @@ if Server then
         local result = { }
         for _, name in ipairs(names) do
             local index = self:GetPatchIndexByName(name)
-            if index and index ~= kDefaultPatchIndex then
+            if index and index ~= kEmptyPatchIndex then
                 table.insertunique(result, index)
             end
         end
@@ -147,7 +140,7 @@ if Client then
 
     function ShoulderPatchesConfig:GetClientShoulderPatchNames(player)
         local result = { }
-        table.insert(result, "None")
+        table.insert(result, self.EmptyPatchName)
         for _, index in ipairs(GetShoulderPatchIndexes(player)) do
             local name = self.PatchNames[ tonumber(index) ]
             if name then table.insertunique(result, name) end
@@ -156,15 +149,15 @@ if Client then
     end
 
     function ShoulderPatchesConfig:GetClientShoulderPatch(player)
-        local index = Client.GetOptionInteger("spe", kDefaultPatchIndex)
+        local index = Client.GetOptionInteger("spe", kEmptyPatchIndex)
         
         if not self.PatchNames[ index ] then
-            Client.SetOptionInteger("spe", kDefaultPatchIndex)
-            index = kDefaultPatchIndex
+            Client.SetOptionInteger("spe", kEmptyPatchIndex)
+            index = kEmptyPatchIndex
         elseif not table.contains(GetShoulderPatchIndexes(player), tostring(index)) then
-            index = kDefaultPatchIndex
+            index = kEmptyPatchIndex
         end
-        return self.PatchNames[ index ] or self.DefaultPatchName, index
+        return self.PatchNames[ index ] or self.EmptyPatchName, index
     end
 
     function ShoulderPatchesConfig:SetClientShoulderPatch(name)
