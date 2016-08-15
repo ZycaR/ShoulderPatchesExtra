@@ -17,8 +17,7 @@
 
 		<input name="spePatchesMap" type="texture" address="wrap"/>
         <input name="spePatchIndex" type="float">0</input>
-        <input name="speRows" type="float">1</input>
-        <input name="speCols" type="float">1</input>
+        <input name="speGrid" type="float2">(1,1)</input>
 		
 	</inputs>
 
@@ -28,12 +27,12 @@
 
 	<code>
 	<![CDATA[
-		float2 DecodeUV(float2 uv, float index, float rows, float cols)
+		float2 DecodeUV(float2 uv, float2 grid, float index)
 		{
-            float row = floor(index / cols);
-            float col = index - row * cols;
-			uv.x = (col + uv.x) / cols;
-            uv.y = (row + uv.y) / rows;
+            float row = floor(index / grid.y);
+            float col = index - row * grid.y;
+			uv.x = (col + uv.x) / grid.y;
+            uv.y = (row + uv.y) / grid;
 			return uv;
 		}
 
@@ -43,14 +42,15 @@
 			float f = 1 - hiddenAmount;
             
             if(spePatchIndex > 0){
-                float2 uv = DecodeUV(input.texCoord, spePatchIndex, speRows, speCols);
+                float2 uv = DecodeUV(input.texCoord, speGrid, spePatchIndex);
 				material.albedo	= tex2D(atlas, uv).rgb;
                 material.opacity = tex2D(spePatchesMap, uv).a * f;
                 material.emissive = tex2D(spePatchesMap, uv).rgb;
 			}
 			else if( patchIndex >= 0 )
             {
-                float2 uv = DecodeUV(input.texCoord, patchIndex, numRows, numColumns);
+				float2 grid = float2(numRows, numColumns);
+                float2 uv = DecodeUV(input.texCoord, grid, patchIndex);
                 material.albedo	= tex2D(atlas, uv).rgb;
                 material.opacity = tex2D(opacityMap, uv).r * f;
                 material.emissive = tex2D(emissiveMap, uv).rgb;

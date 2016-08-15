@@ -27,14 +27,13 @@ Patch index is position of patch on texture. Index with 0 occupied left-top corn
 #### Material File
 *This part cannot be modified with original workshop mod, any modification will be classified as violation of consistency check. To modify this part please contact the author.*
 
-Next part of shoulder patches mod is material file. This text file tells engine location, where to find texture and describe tilling of patches. Describe how are patches arranged in how many rows and columns.
+Next part of shoulder patches mod is material file. This text file tells engine location, where to find texture and describe tilling of patches. Describe how are patches arranged in how many rows and columns (grid size).
 
 Material file: ``..\models\marine\patches\shoulder_patch.material``
 ```
 ...
 spePatchesMap = "models/marine/patches/ShoulderPatchesExtra.dds"
-speRows = 4
-speCols = 16
+speGrid = [ 4.0, 16.0 ]
 ```
 
 #### Patches Config File
