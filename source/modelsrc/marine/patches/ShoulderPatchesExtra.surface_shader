@@ -16,8 +16,8 @@
         <input name="patchIndex" type="float">1</input>
 
 		<input name="spePatchesMap" type="texture" address="wrap"/>
-        <input name="spePatchIndex" type="float">0</input>
-        <input name="speGrid" type="float2">(1,1)</input>
+        <input name="spePatchIndex" type="float">0.0</input>
+        <input name="speGrid" type="float2">(1.0,1.0)</input>
 		
 	</inputs>
 
@@ -32,8 +32,24 @@
             float row = floor(index / grid.y);
             float col = index - row * grid.y;
 			uv.x = (col + uv.x) / grid.y;
-            uv.y = (row + uv.y) / grid;
+            uv.y = (row + uv.y) / grid.x;
 			return uv;
+		}
+
+		void rotate (inout float2 uv) {
+			float2 origin = DecodeUV(float2(0.5, 0.5), speGrid, spePatchIndex);
+			float2 norm = (uv - origin) / speGrid;
+			
+			float t = ((0.5 * time));
+			float s = sin ( t );
+			float c = cos ( t );
+
+			
+			float2 rotated = float2(
+				norm.x * c - norm.y * s,
+				norm.y * c + norm.x * s);
+		
+			uv = (rotated * speGrid + origin);
 		}
 
 		void MaterialShader( in Material_Input input, inout Material material )
@@ -41,8 +57,10 @@
 			float highlightId = highlight;
 			float f = 1 - hiddenAmount;
             
-            if(spePatchIndex > 0){
+            if(spePatchIndex > 0)
+			{
                 float2 uv = DecodeUV(input.texCoord, speGrid, spePatchIndex);
+				//rotate(uv, origin);
 				material.albedo	= tex2D(atlas, uv).rgb;
                 material.opacity = tex2D(spePatchesMap, uv).a * f;
                 material.emissive = tex2D(spePatchesMap, uv).rgb;
