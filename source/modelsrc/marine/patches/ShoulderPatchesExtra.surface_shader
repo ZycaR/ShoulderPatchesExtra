@@ -17,8 +17,8 @@
 
 		<input name="spePatchesMap" type="texture" address="wrap"/>
         <input name="spePatchIndex" type="float">0.0</input>
+        <input name="spePatchEffect" type="float">1.0</input>
         <input name="speGrid" type="float2">(1.0,1.0)</input>
-		
 	</inputs>
 
 	<params>
@@ -43,7 +43,6 @@
 			float t = ((0.5 * time));
 			float s = sin ( t );
 			float c = cos ( t );
-
 			
 			float2 rotated = float2(
 				norm.x * c - norm.y * s,
@@ -60,7 +59,7 @@
             if(spePatchIndex > 0)
 			{
                 float2 uv = DecodeUV(input.texCoord, speGrid, spePatchIndex);
-				//rotate(uv, origin);
+				if(spePatchEffect == 1.0) { rotate(uv); }
 				material.albedo	= tex2D(atlas, uv).rgb;
                 material.opacity = tex2D(spePatchesMap, uv).a * f;
                 material.emissive = tex2D(spePatchesMap, uv).rgb;

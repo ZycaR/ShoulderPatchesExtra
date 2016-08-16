@@ -16,6 +16,7 @@ ShoulderPatchesMixin.kPatchMaps = {
 ShoulderPatchesMixin.networkVars =
 {
     spePatchIndex = "integer (0 to 1024)",
+    spePatchEffect = "integer (0 to 1)",
     spePatches = "string (256)"
 }
 
@@ -29,6 +30,7 @@ ShoulderPatchesMixin.optionalCallbacks = {}
 
 function ShoulderPatchesMixin:__initmixin()
     self.spePatchIndex = 0
+    self.spePatchEffect = 0
     self.spePatches = nil
     self.speOptionsSent = false
 end
@@ -41,6 +43,7 @@ if Server then
             local patches = ShoulderPatchesConfig:GetShoulderPatches(client)
             if player and patches then
                 player.spePatchIndex = 0
+                player.spePatchEffect = 0
                 player.spePatches = patches
             end
         end
@@ -49,6 +52,10 @@ if Server then
 
     function ShoulderPatchesMixin:SetShoulderPatchIndex(value)
         self.spePatchIndex = value
+    end
+    
+    function ShoulderPatchesMixin:SetShoulderPatchEffect(value)
+        self.spePatchEffect = value
     end
 
 end
@@ -70,11 +77,12 @@ if Client then
         end
         return self.spePatchIndex
     end
-
+    
     function ShoulderPatchesMixin:OnUpdateRender()
         local model = self:GetRenderModel()
         if model ~= nil then
             model:SetMaterialParameter("spePatchIndex", self:GetValidShoulderPatchIndex())
+            model:SetMaterialParameter("spePatchEffect", self.spePatchEffect or 0)
         end
     end
     

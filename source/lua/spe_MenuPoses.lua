@@ -14,5 +14,6 @@ function MenuPoses:Update(deltaTime)
         local player = Client.GetLocalPlayer()
         local name, index = ShoulderPatchesConfig:GetClientShoulderPatch(player)
         model:SetMaterialParameter("spePatchIndex", index)
+        model:SetMaterialParameter("spePatchEffect", player and player.spePatchEffect or 0)
     end
 end

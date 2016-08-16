@@ -18,6 +18,7 @@ if Server then
     function Player:CopyPlayerDataFrom(player)
         ns2_CopyPlayerDataFrom(self, player)
         self.spePatchIndex = player.spePatchIndex
+        self.spePatchEffect = player.spePatchEffect
         self.spePatches = player.spePatches
         self.speOptionsSent = player.speOptionsSent
     end
