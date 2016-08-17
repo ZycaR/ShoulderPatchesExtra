@@ -14,5 +14,6 @@ kShoulderPatchNames = {
 	"Lerk",
 	"Dilligaf",
 	"karrot",
-	"wooza1"
+	"wooza1",
+	"Redguy"
 }
