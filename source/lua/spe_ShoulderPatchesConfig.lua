@@ -124,7 +124,7 @@ if Server then
         local indexes = self:GetShoulderPatchIndexes(names)
     	local result = table.concat(indexes, ",")
     	
-    	Shared.Message(".. SteamID: ".. steamId .. ".. ShouderPatchesExtra: [" .. result .. "]")
+    	--Shared.Message(".. SteamID: ".. steamId .. ".. ShouderPatchesExtra: [" .. result .. "]")
         return result
     end
 

@@ -17,7 +17,8 @@ ShoulderPatchesMixin.networkVars =
 {
     spePatchIndex = "integer (0 to 1024)",
     spePatchEffect = "integer (0 to 1)",
-    spePatches = "string (256)"
+    spePatches = "string (256)",
+    speOptionsSent = "boolean"
 }
 
 ShoulderPatchesMixin.expectedMixins =
@@ -51,6 +52,7 @@ if Server then
     Event.Hook("ClientConnect", OnClientConnect)
 
     function ShoulderPatchesMixin:SetShoulderPatchIndex(value)
+        self.speOptionsSent = true
         self.spePatchIndex = value
     end
     
@@ -69,8 +71,10 @@ if Client then
     end
     
     function ShoulderPatchesMixin:GetValidShoulderPatchIndex()
-        if not self.speOptionsSent and self.spePatches and self.spePatches ~= "" then
-            self.speOptionsSent = true
+        if not self.speOptionsSent and not self._speInternalSent
+           and self.spePatches and self.spePatches ~= ""
+        then
+            self._speInternalSent = true -- prevent sending spam after client connects
             local name, index = ShoulderPatchesConfig:GetClientShoulderPatch(self)
             self.spePatchIndex = index
             SendShoulderPatchUpdate(self.spePatchIndex)
