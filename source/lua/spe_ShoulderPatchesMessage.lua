@@ -29,6 +29,10 @@ if not kSetShoulderPatchMessage then
             local player = client and client:GetControllingPlayer()
             if player and HasMixin(player, "ShoulderPatches") then
                 player:SetShoulderPatchIndex(message.spePatchIndex or 0)
+                
+                
+                local steamId = tostring(client:GetUserId())
+                Shared.Message(".. SPE SteamID: ".. steamId .. " - Index: ".. tostring(message.spePatchIndex))
             end
         end
         Server.HookNetworkMessage("SetShoulderPatch", OnSetShoulderPatch)

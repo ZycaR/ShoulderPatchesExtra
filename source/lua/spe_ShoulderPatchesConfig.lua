@@ -123,8 +123,6 @@ if Server then
     	local names = GetShinePatches(client) or GetShoulderPatches(self._config, steamId)
         local indexes = self:GetShoulderPatchIndexes(names)
     	local result = table.concat(indexes, ",")
-    	
-    	--Shared.Message(".. SteamID: ".. steamId .. ".. ShouderPatchesExtra: [" .. result .. "]")
         return result
     end
 

@@ -36,6 +36,27 @@ function ShoulderPatchesMixin:__initmixin()
     self.speOptionsSent = false
 end
 
+-- (start) Debug info
+local function __LogClientData(client)
+    local steamId = tostring(client:GetUserId())
+    Shared.Message(".. SPE SteamID: ".. steamId)
+    local player = client:GetControllingPlayer()
+    if player then 
+        Shared.Message(".. .. spePatches: [" .. player.spePatches .. "]")
+        Shared.Message(".. .. spePatchIndex: [" .. tostring(player.spePatchIndex) .. "]")
+        Shared.Message(".. .. speOptionsSent: [" .. tostring(player.speOptionsSent) .. "]")
+    else
+        Shared.Message(".. .. speData: [n/a]")
+    end
+end
+local function OnCommandInfo(client)
+    if client and not client:GetIsVirtual() then
+        __LogClientData(client)
+    end
+end
+Event.Hook( "Console_spe_info", OnCommandInfo )
+-- (end) Debug info
+
 if Server then
 
     local function OnClientConnect(client)
@@ -46,6 +67,7 @@ if Server then
                 player.spePatchIndex = 0
                 player.spePatchEffect = 0
                 player.spePatches = patches
+                player.speOptionsSent = false
             end
         end
     end
@@ -76,8 +98,9 @@ if Client then
         then
             self._speInternalSent = true -- prevent sending spam after client connects
             local name, index = ShoulderPatchesConfig:GetClientShoulderPatch(self)
-            self.spePatchIndex = index
-            SendShoulderPatchUpdate(self.spePatchIndex)
+            if self.spePatchIndex ~= index then -- prevent sending same value (like zeroes)
+                SendShoulderPatchUpdate(index)
+            end
         end
         return self.spePatchIndex
     end
