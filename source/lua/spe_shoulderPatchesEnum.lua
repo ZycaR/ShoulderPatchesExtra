@@ -20,5 +20,6 @@ kShoulderPatchNames = {
     "O.R.A. Playtest",  // Wooza's O.R.A Play-testing Event
     "Pacific",
     "Gretel",
-    "Yolo"
+    "Yolo",
+    "Combat Event"
 }
