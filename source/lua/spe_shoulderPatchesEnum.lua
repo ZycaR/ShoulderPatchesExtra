@@ -21,5 +21,6 @@ kShoulderPatchNames = {
     "Pacific",
     "Gretel",
     "Yolo",
-    "NS2:Combat Event"
+    "NS2:Combat Event",
+    "Cactuar"
 }

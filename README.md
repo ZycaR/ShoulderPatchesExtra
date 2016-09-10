@@ -84,7 +84,7 @@ Example of config file:
 }
 ```
 
-### ShoulderPatchesExtra Mod ID - 2573eb73
+### ShoulderPatchesExtra Mod ID - 2bc45759
 ```sh
 Server.exe -mods "2bc45759"
 ```
