@@ -4,7 +4,7 @@
 ]]
 Script.Load("lua/spe_ShoulderPatchesConfig.lua")
 Script.Load("lua/spe_ShoulderPatchesMessage.lua")
-    
+
 local speMenuOptions = {
     name  = "ShoulderPatch",
     label = "Custom Patches",
@@ -32,28 +32,28 @@ function GUIMainMenu:CreateCustomizeWindow()
 
     LoadCSSFile("lua/spe.css")
 
-    // create container
+    -- create container
     self.spe = CreateMenuElement(self.mainWindow, "ContentBox", true)
     self.spe:SetCSSClass("shoulder_patches_wrapper")
-    
+
     self.customizeFrame:AddEventCallbacks({
         OnHide = function(self)
             self.scriptHandle.spe:SetIsVisible(false)
         end
     })
-    
-    // create from
-    local form = CreateMenuElement(self.spe, "Form", true)    
+
+    -- create from
+    local form = CreateMenuElement(self.spe, "Form", true)
     form:SetCSSClass("options")
 
-    // label on top of input
+    -- label on top of input
     local label = CreateMenuElement(form, "Font", false)
     label:SetCSSClass("shoulder_patches_label")
     label:SetText(speMenuOptions.label)
     label:SetTopOffset(0)
     label:SetIgnoreEvents(false)
 
-    // input for patches
+    -- input for patches
     local input = form:CreateFormElement(Form.kElementType.DropDown, speMenuOptions.name, patchName)
     input:SetOptions(patchNames)
     input:SetCSSClass(speMenuOptions.css)
@@ -79,6 +79,6 @@ function GUIMainMenu:CreateCustomizeWindow()
     for index, child in ipairs(input:GetChildren()) do
         child:AddEventCallbacks({ OnMouseIn = OnMouseInFn })
     end
-        
+
     self.customizeElements[speMenuOptions.name] = input
 end
