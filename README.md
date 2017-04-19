@@ -84,6 +84,9 @@ Example of config file:
 }
 ```
 
+### Known Issues:
+There is recommendation to have configured up to 64 patches per player in your config file. If you need to configure more patches, please change string length of netwar "spePatches" in following file: lua\spe_ShoulderPatchesMixin.lua (seek for a  comment)
+
 ### ShoulderPatchesExtra Mod ID - 2bc45759
 ```sh
 Server.exe -mods "2bc45759"
