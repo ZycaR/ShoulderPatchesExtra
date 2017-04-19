@@ -17,7 +17,7 @@ ShoulderPatchesMixin.networkVars =
 {
     spePatchIndex = "integer (0 to 1024)",
     spePatchEffect = "integer (0 to 1)",
-    spePatches = "string (256)",
+    spePatches = "string (256)", -- should be enough for 64 patches per player. In case of more patches increase to 1024, etc.
     speOptionsSent = "boolean"
 }
 
